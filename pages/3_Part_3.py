@@ -10,6 +10,7 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_3"])
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
 
+st.title("Part 3")
 
 def setprompt(part):
     if "system_prompt" not in st.session_state:
@@ -24,6 +25,10 @@ setprompt("part3")
 
 if "chat_history_3" not in st.session_state:
     st.session_state["chat_history_3"] = []
+
+if not st.session_state["chat_history_3"]:
+    greeting = """Hello. Let's discuss the potential for bias in the study."""
+    st.session_state.chat_history_3 = [{"role": "assistant", "content": greeting}]
 
 # Write chat history
 for message in st.session_state.chat_history_3:
