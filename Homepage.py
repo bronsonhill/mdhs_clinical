@@ -4,7 +4,7 @@ from openai import OpenAI
 
 # Select GPT model
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-4o"
+    st.session_state["openai_model"] = "gpt-4o-mini"
 
 
 st.title("Home")
