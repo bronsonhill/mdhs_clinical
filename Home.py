@@ -14,7 +14,8 @@ if "uuid" not in st.session_state:
     unique_id =  bson.Binary.from_uuid(uuid.uuid4())
     st.session_state["uuid"] = unique_id
 
-def get_db(part):
+@st.cache_resource
+def get_db():
     mongodb_username = st.secrets["MONGODB_USERNAME"]
     mongodb_password = st.secrets["MONGODB_PW"]
     mongodb_cluster = st.secrets["MONGODB_CLUSTER"]
@@ -25,7 +26,7 @@ def get_db(part):
 
     db = client["chat_transcripts"] # chat_transcripts is the database
 
-    return db[part] # Return the collection (part1_transcripts, part2_transcripts, part3_transcripts)
+    return db # Return the collection (part1_transcripts, part2_transcripts, part3_transcripts)
 
 
 st.title("Home")

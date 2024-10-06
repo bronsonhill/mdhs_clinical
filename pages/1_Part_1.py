@@ -20,7 +20,7 @@ if "uuid" not in st.session_state:
     st.session_state["uuid"] = unique_id
 
 # Get the collection for this part
-transcripts = get_db("part1_transcripts")
+transcripts = get_db()["part1_transcripts"]
 
 st.title("Part 1")
 
