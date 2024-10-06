@@ -30,6 +30,9 @@ def get_db():
 
 
 st.title("Home")
+with st.expander("ℹ️ Disclaimer", expanded=True):
+    st.caption("Please note that chat transcripts are being stored and may be reviewed for the purposes of improving this tool.")
+
 st.markdown(
 """
 There are three parts to this chatbot activity:
