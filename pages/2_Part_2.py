@@ -9,7 +9,7 @@ from utils.transcript_utils import add_message_to_transcript, save_transcript
 
 
 # Set up OpenAI API client
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+client = OpenAI(api_key=st.secrets["OPENAI_API_2"])
 
 # Select GPT model
 if "openai_model" not in st.session_state:
