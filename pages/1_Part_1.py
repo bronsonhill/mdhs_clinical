@@ -5,10 +5,11 @@ import bson
 import datetime
 from openai import OpenAI
 from Home import get_db
+from utils.transcript_utils import add_message_to_transcript, save_transcript
 
 
 # Set up OpenAI API client
-client = OpenAI(api_key=st.secrets["OPENAI_API_1"])
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # Select GPT model
 if "openai_model" not in st.session_state:
@@ -70,10 +71,10 @@ if prompt := st.chat_input("Ask the supervisor questions"):
 
     st.session_state.chat_history_1.append({"role": "assistant", "content": response})
 
-    transcript = {
-        "_id": st.session_state["uuid"],
-        "date": datetime.datetime.now(),
-        "transcript": st.session_state["chat_history_1"]
-    }
+    # Use the modularized function to add messages to the transcript
+    session_id = st.session_state["uuid"]  # Use the existing UUID for session management
+    add_message_to_transcript(transcripts, session_id, {"role": "user", "content": prompt})
+    add_message_to_transcript(transcripts, session_id, {"role": "assistant", "content": response})
 
-    transcripts.replace_one(filter={"_id": st.session_state["uuid"]}, replacement=transcript, upsert=True)
+    # Save the complete transcript
+    save_transcript(transcripts, session_id, st.session_state["chat_history_1"])

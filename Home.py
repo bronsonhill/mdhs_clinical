@@ -20,7 +20,7 @@ def get_db():
     mongodb_password = st.secrets["MONGODB_PW"]
     mongodb_cluster = st.secrets["MONGODB_CLUSTER"]
 
-    db_string = f"mongodb+srv://{mongodb_username}:{mongodb_password}@{mongodb_cluster}.2pqhy.mongodb.net/?retryWrites=true&w=majority&appName={mongodb_cluster}"
+    db_string = f"mongodb+srv://{mongodb_username}:{mongodb_password}@2025s1.tmkd7de.mongodb.net/?retryWrites=true&w=majority&appName={mongodb_cluster}"
 
     client = MongoClient(db_string)
 
