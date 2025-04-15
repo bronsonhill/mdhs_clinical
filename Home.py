@@ -1,20 +1,15 @@
 import streamlit as st
 import uuid
 from pymongo import MongoClient
-from bson import ObjectId
+from bson import ObjectId, Binary
 from openai import OpenAI
 from utils.login_code_generator import verify_login_code
 
 
+# Generate a unique ID for this session
+unique_id = Binary.from_uuid(uuid.uuid4())
+st.session_state["uuid"] = unique_id
 
-# Select GPT model
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-4o-mini"
-
-# Get a uuid for the session
-if "uuid" not in st.session_state:
-    unique_id =  bson.Binary.from_uuid(uuid.uuid4())
-    st.session_state["uuid"] = unique_id
 
 st.title("Home")
 with st.expander("ℹ️ Disclaimer", expanded=True):

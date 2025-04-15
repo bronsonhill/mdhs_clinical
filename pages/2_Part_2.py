@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import uuid
 from pymongo import MongoClient
-from bson import ObjectId
+from bson import ObjectId, Binary
 from openai import OpenAI
 from Home import get_db
 from utils.transcript_utils import add_message_to_transcript, save_transcript
@@ -19,11 +19,6 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_2"])
 # Select GPT model
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-4o-mini"
-
-# Get a uuid for the session
-if "uuid" not in st.session_state:
-    unique_id =  bson.Binary.from_uuid(uuid.uuid4())
-    st.session_state["uuid"] = unique_id
 
 # Get the collection for this part
 transcripts = get_db()["part2_transcripts"]
