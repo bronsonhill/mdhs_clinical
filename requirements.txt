@@ -1,3 +1,5 @@
 openai==1.73.0
 pymongo==4.11.0
 streamlit==1.44.1
+bson==0.5.10
+uuid==1.30
