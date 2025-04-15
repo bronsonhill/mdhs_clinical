@@ -3,6 +3,8 @@ import uuid
 import bson
 from openai import OpenAI
 from pymongo import MongoClient
+from utils.login_code_generator import verify_login_code
+from utils.db_connection import get_db
 
 
 # Select GPT model
@@ -13,21 +15,6 @@ if "openai_model" not in st.session_state:
 if "uuid" not in st.session_state:
     unique_id =  bson.Binary.from_uuid(uuid.uuid4())
     st.session_state["uuid"] = unique_id
-
-@st.cache_resource
-def get_db():
-    mongodb_username = st.secrets["MONGODB_USERNAME"]
-    mongodb_password = st.secrets["MONGODB_PW"]
-    mongodb_cluster = st.secrets["MONGODB_CLUSTER"]
-
-    db_string = f"mongodb+srv://{mongodb_username}:{mongodb_password}@2025s1.tmkd7de.mongodb.net/?retryWrites=true&w=majority&appName={mongodb_cluster}"
-
-    client = MongoClient(db_string)
-
-    db = client["chat_transcripts"] # chat_transcripts is the database
-
-    return db # Return the collection (part1_transcripts, part2_transcripts, part3_transcripts)
-
 
 st.title("Home")
 with st.expander("ℹ️ Disclaimer", expanded=True):
@@ -41,3 +28,13 @@ There are three parts to this chatbot activity:
 - Item 3: Learning to minimise bias with a supervisor.
 """
 )
+
+st.session_state.login_code = st.text_input("Enter your login code here: ")
+
+if st.session_state.login_code:
+    user_id = verify_login_code(st.session_state.login_code)
+    if user_id:
+        st.session_state["user_id"] = user_id  # Store the login code as the user ID
+        st.write("Login successful")
+    else:
+        st.write("Login code is invalid")

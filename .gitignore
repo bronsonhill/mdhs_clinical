@@ -2,3 +2,4 @@ prompts/
 .streamlit/
 __pycache__/
 venv
+exports/

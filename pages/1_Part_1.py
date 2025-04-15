@@ -7,6 +7,10 @@ from openai import OpenAI
 from Home import get_db
 from utils.transcript_utils import add_message_to_transcript, save_transcript
 
+# Check for login code
+if "login_code" not in st.session_state or not st.session_state["login_code"]:
+    st.warning("Please enter your login code on the home page to access this content.")
+    st.stop()
 
 # Set up OpenAI API client
 client = OpenAI(api_key=st.secrets["OPENAI_API_1"])
@@ -73,8 +77,9 @@ if prompt := st.chat_input("Ask the supervisor questions"):
 
     # Use the modularized function to add messages to the transcript
     session_id = st.session_state["uuid"]  # Use the existing UUID for session management
-    add_message_to_transcript(transcripts, session_id, {"role": "user", "content": prompt})
-    add_message_to_transcript(transcripts, session_id, {"role": "assistant", "content": response})
+    user_id = st.session_state.get("user_id", "anonymous")  # Get user ID from session state, default to "anonymous"
+    add_message_to_transcript(transcripts, session_id, user_id, {"role": "user", "content": prompt})
+    add_message_to_transcript(transcripts, session_id, user_id, {"role": "assistant", "content": response})
 
     # Save the complete transcript
-    save_transcript(transcripts, session_id, st.session_state["chat_history_1"])
+    save_transcript(transcripts, session_id, user_id, st.session_state["chat_history_1"])
