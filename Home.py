@@ -4,7 +4,7 @@ import bson
 from openai import OpenAI
 from pymongo import MongoClient
 from utils.login_code_generator import verify_login_code
-from utils.db_connection import get_db
+
 
 
 # Select GPT model
