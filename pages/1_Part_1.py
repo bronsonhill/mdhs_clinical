@@ -4,7 +4,7 @@ import uuid
 from pymongo import MongoClient
 from bson import ObjectId, Binary
 from openai import OpenAI
-from Home import get_db
+from utils.db_connection import get_db
 from utils.transcript_utils import add_message_to_transcript, save_transcript
 from utils.login_code_generator import verify_login_code
 
