@@ -1,3 +1,3 @@
-openai==1.73.0
-pymongo==4.11.0
+openai
+pymongo
 # streamlit==1.44.1
